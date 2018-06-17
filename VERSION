@@ -1,0 +1,14 @@
+# Original Xerial's libraries versions:
+#version=3.7.2
+#spatialite_version=2.4.0-5
+
+# Libraries added from spatialite4-jdbc:
+version=3.11.1
+SPATIALITE_VERSION=4.3.0a
+GEOS_VERSION=3.5.0
+PROJ_VERSION=4.8.0
+LIBXML2_VERSION=2.9.2
+ZLIB_VERSION=1.2.11
+LZMA_VERSION=4.32.7
+ICONV_VERSION=1.14
+LIBXML2_CONFIG_FLAGS="--without-python --with-zlib=/usr/local --with-lzma=/usr/local"
