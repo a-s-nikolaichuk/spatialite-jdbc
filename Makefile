@@ -86,7 +86,7 @@ $(LIBXML2_UNPACKED): $(LIBXML2_ARCHIVE)
 	touch $@
 
 $(LIBXML2_LIB): $(LIBXML2_UNPACKED)
-	if [ ! -f $(LIBXML2_DIR)/Makefile ]; then (cd $(LIBXML2_DIR) && ./configure $(LIBXML2_CONFIG_FLAGS)); fi;
+	if [ ! -f $(LIBXML2_DIR)/Makefile ]; then (cd $(LIBXML2_DIR) && CFLAGS=$(LIBXML2_CFLAGS) ./configure $(LIBXML2_CONFIG_FLAGS)); fi;
 	(cd $(LIBXML2_DIR) && make)
 
 ZLIB_ARCHIVE:=$(TARGET)/zlib-$(ZLIB_VERSION).tar.gz

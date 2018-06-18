@@ -153,10 +153,9 @@ endif
 #OS X build flags: http://www.kyngchaos.com/macosx/build/geos
 
 PROJ_CONFIG_FLAGS = --with-pic
-LIBXML2_CONFIG_FLAGS = --with-pic
 LZMA_CONFIG_FLAGS = --with-pic
 ICONV_CONFIG_FLAGS = --with-pic --enable-static
- 
+
 SPATIALITE_CONFIG_FLAGS = --with-pic --enable-freexl=no --enable-proj=yes --enable-geos=yes --enable-lwgeom=no
 SPATIALITE_FLAGS = $(SPATIALITE_DIR)/src/.libs/libspatialite.a $(GEOS_DIR)/capi/.libs/libgeos_c.a $(GEOS_DIR)/src/.libs/libgeos.a $(PROJ_DIR)/src/.libs/libproj.a $(LIBXML2_DIR)/.libs/libxml2.a $(ZLIB_DIR)/libz.a $(LZMA_DIR)/src/sdk/7zip/Compress/LZMA/libLZMA.a $(ICONV_DIR)/lib/.libs/libiconv.a $(SPATIALITE_DIR)/src/virtualtext/.libs/libvirtualtext.a -lstdc++
 
@@ -164,11 +163,15 @@ SPATIALITE_FLAGS = $(SPATIALITE_DIR)/src/.libs/libspatialite.a $(GEOS_DIR)/capi/
 ifeq ($(OS_NAME),Windows)
     NATIVE_DLL = win32
     GEOS_CONFIG_FLAGS = --with-pic
-    GEOS_FORCE_COMPILERS = 
+	LIBXML2_CONFIG_FLAGS = --with-pic --without-python
+	LIBXML2_CFLAGS = -lws2_32
+    GEOS_FORCE_COMPILERS =
 else ifeq ($(OS_NAME),Linux)
 	NEED_ICONV_GLIBC_PATCH=true
 	GEOS_CONFIG_FLAGS = --with-pic
-	GEOS_FORCE_COMPILERS = 
+	LIBXML2_CONFIG_FLAGS = --with-pic
+	LIBXML2_CFLAGS =
+	GEOS_FORCE_COMPILERS =
     ifeq ($(target),Linux-arm)
         NATIVE_DLL = linuxarm
     else ifeq ($(target),Linux-amd64)
@@ -178,6 +181,8 @@ else ifeq ($(OS_NAME),Linux)
     endif
 else ifeq ($(OS_NAME),Mac)
 	GEOS_CONFIG_FLAGS = --with-pic --disable-dependency-tracking CFLAGS="-Os -arch i386 -arch x86_64" CXXFLAGS="-Os -arch i386 -arch x86_64" LDFLAGS="-arch i386 -arch x86_64"
+	LIBXML2_CONFIG_FLAGS = --with-pic
+	LIBXML2_CFLAGS =
     ifeq ($(target),Mac-x86_64)
         NATIVE_DLL = mac64
         GEOS_FORCE_COMPILERS = CC=clang CXX=clang++
