@@ -1,6 +1,3 @@
-# Compiled class file
-*.class
-
 # Log file
 *.log
 
@@ -25,3 +22,9 @@ hs_err_pid*
 # Intellij IDEA project configuration
 .idea/
 *.iml
+
+# Maven target directory
+target/
+
+# Copied NestedVM classes
+src/main/resources/org/ibex/
